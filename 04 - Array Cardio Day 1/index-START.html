@@ -81,20 +81,43 @@
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
-    // const category = document.querySelectorAll(".mw-category a");
-    // const arrCategory = Object.values(category)
-    // const links = arrCategory.querySelectorAll("a");
-    const links = document.querySelectorAll(".mw-category a");
-    const asdLinks = Object.values(links)
-    const de = asdLinks.map(link => link.textContent)
 
+    const links = document.querySelectorAll(".mw-category a");
+    const arrLinks = Object.values(links) // because typeof(links) is 'object' 
+    const de = arrLinks
+      .map(link => link.textContent)
+      .filter(streetName => streetName.includes('de'))
+
+
+    // 2nd way
+    const linksX = [...document.querySelectorAll(".mw-category a")];
+    const deX = linksX.map(link => link.textContent)
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
 
+    const alpha = people.sort((lastOne, nextOne) => {
+      const [lastA, firstA] = lastOne.split(", ")
+      const [lastB, firstB] = nextOne.split(", ")
+      return lastA > lastB ? 1 : -1
+    })
+
+    console.table(alpha)
+
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+
+
+    const transportation = data.reduce((obj, item) => {
+      if (!obj[item]) {
+        obj[item] = 0;
+      }
+      obj[item]++;
+      return obj
+    }, {})
+
+    console.log(transportation)
 
   </script>
 </body>
